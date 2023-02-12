@@ -38,7 +38,7 @@ If a file (dwarf_feh.csv) is given, u, g, i magnitudes are contained in this fil
 
 # API
 
-dwarf_feh(u,g,i,error)
+    dwarf_feh(u,g,i,error)
 
     Args:
         u: array-like, shape (n, )
@@ -53,7 +53,7 @@ dwarf_feh(u,g,i,error)
         error: float
            color error. An assumption that (u-g) and (g-i) are independent Gaussian variables is made.
 
-giant_feh(u,g,i,error)
+    giant_feh(u,g,i,error)
 
     Args:
         u: array-like, shape (n, )
