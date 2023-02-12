@@ -7,10 +7,10 @@ giant_feh is a astronomy Python package specifically designed to estimate the me
     #from PyPI (recommmend)
     python3 -m pip install CSST_feh
 # Quick start 
-The input are u, g and i magnitudes and color error. The three magnitudes can be given from photometric data. Color error is based on the assumption that magnitudes are independent Gaussian variables, it represents the error of the combination of two magnitudes. We recommend that the error of the magnitude should not be larger than 0.025 mag.\
+The input are u, g and i magnitudes and color error. The three magnitudes can be given from photometric data. An assumption that magnitudes are independent Gaussian variables is made. We recommend that the error of the magnitude should not be larger than 0.025 mag. The color error represents the error of the combination of two magnitudes.\
 If you want to estimate the metallicity of the dwarf stars, you should use dwarf_feh package. The output are two files named dwarf_feh_predicted.csv and dwarf_feh_error.csv, the former stores the photometric metallicity and the latter stores the random error of photometric metallicity.
 
-    from feh import dwarf_feh
+    from CSST_feh import dwarf_feh
     dwarf_feh.dwarf_feh(u,g,i,error)
 For the giant stars, you should use giant_feh package. The output are two files named giant_feh_predicted.csv and giant_feh_error.csv, the former stores the photometric metallicity and the latter stores the random error of photometric metallicity.  
 
@@ -50,7 +50,7 @@ dwarf_feh(u,g,i,error)
            CSST i band
            
         error: float
-           color error 
+           color error. An assumption that (u-g) and (g-i) are independent Gaussian variables is made.
 
 giant_feh(u,g,i,error)
 
@@ -65,4 +65,4 @@ giant_feh(u,g,i,error)
            CSST i band
            
         error: float
-           color error
+           color error. An assumption that (u-g) and (g-i) are independent Gaussian variables is made.
