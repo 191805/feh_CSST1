@@ -7,7 +7,7 @@ giant_feh is a astronomy Python package specifically designed to estimate the me
     #from PyPI (recommmend)
     pip install feh
 # Quick start 
-The input are u, g and i magnitudes and color error.
+The input are u, g and i magnitudes and color error.\
 If you want to estimate the metallicity of the dwarf stars, you should use dwarf_feh package. The output are two files named dwarf_feh_predicted.csv and dwarf_feh_error.csv, the former stores the photometric metallicity and the latter stores the random error of photometric metallicity.\
 For the giant stars, you should use giant_feh package. The output are two files named giant_feh_predicted.csv and giant_feh_error.csv, the former stores the photometric metallicity and the latter stores the random error of photometric metallicity.
 
@@ -22,17 +22,17 @@ For the giant stars, you should use giant_feh package. The output are two files 
 # An example
 If a file (dwarf_feh.csv) is given, u, g, i magnitudes are contained in this file.
 
-py\
-import pandas as pd\
-error=0.01\
+    py
+    import pandas as pd
+    error=(0.01**2+0.01**2)**0.5
 
-data=pd.read_csv('giant_feh.csv')\
-u0=data.loc[:,['u']].values\
-g0=data.loc[:,['g']].values\
-i0=data.loc[:,['i']].values\
-u,g,i=u0.flatten(),g0.flatten(),i0.flatten()\
-xdata,ydata=g-i,u-g\
-dwarf.dwarf_feh(u,g,i,error)\
+    data=pd.read_csv('dwarf_feh.csv')
+    u0=data.loc[:,['u']].values
+    g0=data.loc[:,['g']].values
+    i0=data.loc[:,['i']].values
+    u,g,i=u0.flatten(),g0.flatten(),i0.flatten()
+    xdata,ydata=g-i,u-g
+    dwarf.dwarf_feh(u,g,i,error)
 
 # API
 dwarf_feh(u,g,i,error)
