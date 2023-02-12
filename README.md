@@ -36,6 +36,7 @@ If a file (dwarf_feh.csv) is given, u, g, i magnitudes are contained in this fil
     # estimate the metallicity of the dwarf stars
     from CSST_feh import dwarf_feh
     dwarf_feh.dwarf_feh(u,g,i,error)
+The output are two files named dwarf_feh_predicted.csv and dwarf_feh_error.csv, the former stores the photometric metallicity and the latter stores the random error of photometric metallicity.
 
 # API
 
