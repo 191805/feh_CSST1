@@ -4,7 +4,7 @@ dwarf_feh is a astronomy Python package specifically designed to estimate  the m
 giant_feh is a astronomy Python package specifically designed to estimate the metallicity of the giant stars from CSST filter systems.
 # How to install
 
-    #from PyPI (recommmend)
+    #from PyPI
     python3 -m pip install CSST_feh
 # Quick start 
 The input are u, g and i magnitudes and color error. The three magnitudes can be given from photometric data. An assumption that magnitudes are independent Gaussian variables is made. We recommend that the error of the magnitude should not be larger than 0.025 mag. The color error represents the combination of the error of two magnitudes.\
