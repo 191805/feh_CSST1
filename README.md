@@ -7,7 +7,7 @@ giant_feh is a astronomy Python package specifically designed to estimate the me
     #from PyPI (recommmend)
     pip install feh
 # Quick start 
-The input are u, g and i magnitudes and color error.\
+The input are u, g and i magnitudes and color error. The three magnitudes can be given from photometric data. Color error is based on the assumption that magnitude is independent Gaussian variables, it represents the error of the combination of two magnitudes. We recommend such error is not larger than 0.025 mag.\
 If you want to estimate the metallicity of the dwarf stars, you should use dwarf_feh package. The output are two files named dwarf_feh_predicted.csv and dwarf_feh_error.csv, the former stores the photometric metallicity and the latter stores the random error of photometric metallicity.\
 
     #estimate the metallicity of the dwarf stars
