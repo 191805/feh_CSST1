@@ -27,7 +27,7 @@ xdata,ydata=g-i,u-g\
 dwarf.dwarf_feh(u,g,i,error)\
 
 # API
-dwarf_feh.dwarf_feh(u,g,i,error)\
+dwarf_feh.dwarf_feh(u,g,i,error)
 
     Args:
         u: array-like, shape (n, )
@@ -41,8 +41,8 @@ dwarf_feh.dwarf_feh(u,g,i,error)\
            
         error: float
            color error 
-# Shi
-giant_feh.giant_feh(u,g,i,error)\
+
+giant_feh.giant_feh(u,g,i,error)
 
     Args:
         u: array-like, shape (n, )
