@@ -1,11 +1,11 @@
 # feh_CSST1
-The code is used to estimate the metallicity of the dwarf stars and giant stars from the CSST filter systems. It is worth noting that only FGK-type stars are valid. \
+The code is used to estimate the metallicity of stars from the CSST filter systems. It is worth noting that only FGK-type stars are valid. \
 dwarf_feh is a astronomy Python package specifically designed to estimate  the metallicity of the dwarf stars from CSST filter systems.\
 giant_feh is a astronomy Python package specifically designed to estimate the metallicity of the giant stars from CSST filter systems.
 # How to install
 
     #from PyPI (recommmend)
-    pip install feh
+    python3 -m pip install CSST_feh
 # Quick start 
 The input are u, g and i magnitudes and color error. The three magnitudes can be given from photometric data. Color error is based on the assumption that magnitudes are independent Gaussian variables, it represents the error of the combination of two magnitudes. We recommend that the error of the magnitude should not be larger than 0.025 mag.\
 If you want to estimate the metallicity of the dwarf stars, you should use dwarf_feh package. The output are two files named dwarf_feh_predicted.csv and dwarf_feh_error.csv, the former stores the photometric metallicity and the latter stores the random error of photometric metallicity.
@@ -14,7 +14,7 @@ If you want to estimate the metallicity of the dwarf stars, you should use dwarf
     dwarf_feh.dwarf_feh(u,g,i,error)
 For the giant stars, you should use giant_feh package. The output are two files named giant_feh_predicted.csv and giant_feh_error.csv, the former stores the photometric metallicity and the latter stores the random error of photometric metallicity.  
 
-    from feh import giant_feh
+    from CSST_feh import giant_feh
     giant_feh.giant_feh(u,g,i,error)
 
 # An example
@@ -33,7 +33,8 @@ If a file (dwarf_feh.csv) is given, u, g, i magnitudes are contained in this fil
     # give the color error
     error=(0.01**2+0.01**2)**0.5
     # estimate the metallicity of the dwarf stars
-    dwarf.dwarf_feh(u,g,i,error)
+    from CSST_feh import dwarf_feh
+    dwarf_feh.dwarf_feh(u,g,i,error)
 
 # API
 dwarf_feh(u,g,i,error)
