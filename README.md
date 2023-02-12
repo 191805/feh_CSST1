@@ -21,6 +21,14 @@ For the giant stars, you should use giant_feh package. The output are two files 
 
 # An example
 If a file (dwarf_feh.csv) is given, u, g, i magnitudes are contained in this file.
+    u	g	i
+-57.15800462	-57.96111814	-58.48358462
+-56.55868835	-57.81592905	-58.45673942
+-57.48604428	-58.41625663	-58.7960925
+-55.84744946	-56.99189961	-57.90055231
+-55.18305239	-57.01869205	-57.98250996
+![image](https://user-images.githubusercontent.com/124223157/218288891-1045100b-48fb-406f-988e-513dc3e89e53.png)
+
 
     py
     import pandas as pd
