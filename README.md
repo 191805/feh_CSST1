@@ -1,8 +1,7 @@
 # feh_CSST1
-The code is used to estimate the metallicity of the dwarf stars and giant stars from the CSST filter systems. \
+The code is used to estimate the metallicity of the dwarf stars and giant stars from the CSST filter systems. It is worth noting that only FGK-type stars are valid. \
 dwarf_feh is a astronomy Python package specifically designed to estimate of metallicities of the dwarf stars from CSST filter systems.\
 giant_feh is a astronomy Python package specifically designed to estimate of metallicities of the giant stars from CSST filter systems.\
-It is worth noting that only FGK-type stars are valid. 
 # How to install
 from PyPI (recommmand)\
 pip install feh
