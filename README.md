@@ -20,14 +20,7 @@ For the giant stars, you should use giant_feh package.
 The output is one file named giant_feh_predicted.csv, the first column stores the photometric metallicity and the secnd column stores the random error of photometric metallicity.
 # An example
 If a file (dwarf_feh.csv) is given, u, g, i magnitudes are contained in this file. Once the color error is given, you can precess the data through the command line like this.
-
-u	g	i
-18.46655202	17.32031786	16.75782225
-18.37935786	17.31230263	16.77079474
-18.90564157	17.66467163	16.97188642
-18.33266618	16.75509323	16.28576298
 ![image](https://user-images.githubusercontent.com/124223157/219325472-eb9ad995-0fe6-4a9d-bfdc-3f287275b282.png)
-
 
     py
     import pandas as pd
