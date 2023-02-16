@@ -12,12 +12,12 @@ If you want to estimate the metallicity of the dwarf stars, you should use dwarf
 
     from CSST_feh import dwarf_feh
     dwarf_feh.dwarf_feh(u,g,i,error)
-The output is one file named dwarf_feh_predicted.csv, the first column stores the photometric metallicity and the secnd column stores the random error of photometric metallicity.\
+The output is one file named dwarf_feh_predicted.csv, the first column is the photometric metallicity and the secnd column is the random error of photometric metallicity.\
 For the giant stars, you should use giant_feh package.   
 
     from CSST_feh import giant_feh
     giant_feh.giant_feh(u,g,i,error)
-The output is one file named giant_feh_predicted.csv, the first column stores the photometric metallicity and the secnd column stores the random error of photometric metallicity.
+The output is one file named giant_feh_predicted.csv, the first column is the photometric metallicity and the secnd column is the random error of photometric metallicity.
 # An example
 If a file (dwarf_feh.csv) is given, u, g, i magnitudes are contained in this file. Once the color error is given, you can precess the data through the command line like this.
 
@@ -35,7 +35,7 @@ If a file (dwarf_feh.csv) is given, u, g, i magnitudes are contained in this fil
     # estimate the metallicity of the dwarf stars
     from CSST_feh import dwarf_feh
     dwarf_feh.dwarf_feh(u,g,i,error)
-The output is one file named dwarf_feh_predicted.csv, the first column stores the photometric metallicity and the secnd column stores the random error of photometric metallicity.
+The output is one file named dwarf_feh_predicted.csv, the first column is the photometric metallicity and the secnd column is the random error of photometric metallicity.
 
 # API
 
