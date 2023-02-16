@@ -165,10 +165,15 @@ of photometric metallicity.
                      +3*a03*(f1[f])**2+a11*x1+2*a12*x1*f1[f]+a21*x1**2))**0.5
             np.seterr(divide='ignore',invalid='ignore')
             n.append(sigma_feh)
-    np.savetxt("dwarf_feh_predicted.csv",m)
+    np.savetxt("dwarf_feh_estimated.csv",m)
     np.savetxt("dwarf_feh_error.csv",n)
     
-    #Last step: delete intermediate files
+    #Last step: output files and delete intermediate files
+    e1=pd.read_csv('dwarf_feh_estimated.csv')
+    e2=pd.read_csv('dwarf_feh_error.csv')
+    file=[e1,e2]
+    data=pd.concat(file,axis=1)
+    data.to_csv("dwarf_feh_predicted.csv",index=0,sep=',')
     os.remove("dwarf_u-g.csv")
     os.remove("dwarf_g-i.csv")
     os.remove("dwarf1_u-g.csv")
@@ -177,3 +182,5 @@ of photometric metallicity.
     os.remove("dwarf2_g-i.csv")
     os.remove("u-g_use.csv")
     os.remove("g-i_use.csv")
+    os.remove("dwarf_feh_estimated.csv")
+    os.remove("dwarf_feh_error.csv")
