@@ -3,7 +3,7 @@ The code is used to estimate the metallicity and effective temperature of the st
 # How to install
 
     #from PyPI
-    pip install CSST
+    python3 -m pip install CSST-parameter
 # Quick start 
 The input are NUV, u, g, i, z, y magnitudes and color error. An assumption that magnitudes are independent Gaussian variables is made. You can precess the data through the command line like this. 
 
