@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 [project]
 name = "CSST_parameter"
-version = "0.1.0"
+version = "0.1.2"
 authors = [
   { name="Shi Ruifeng", email="shiruifeng23@mails.ucas.ac.cn" },
 ]
@@ -17,4 +17,4 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/191805/csst_parameter"
+"Homepage" = "https://github.com/191805/feh_CSST1"
