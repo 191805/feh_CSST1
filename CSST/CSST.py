@@ -19,10 +19,7 @@ Created on Mon Aug 28 13:33:31 2023
 @author: lenovo
 """
 
-
-
-
-def dwarf(u,g,i,z,y,error):
+def dwarf(u,g,i,z,y):
     '''
     This function can be used to estimate the metallicity and effective 
     temperature of the dwarf stars from the CSST broad-band filter systems.
@@ -44,10 +41,6 @@ def dwarf(u,g,i,z,y,error):
         y: array-like, shape (n, )
            CSST y band           
            
-        error: float
-           color error. An assumption that (u-g) and (g-i) are independent Gaussian variables
-           is made.
-           
     The output is one file named parameter_dwarf.csv, which stores the photometric metallicity and 
     the effective temperature of the dwarf stars.
     '''
@@ -62,43 +55,90 @@ def dwarf(u,g,i,z,y,error):
     xdata=g-i
     ydata=u-g
     xdata1=g-z
-    ydata1=g-y    
+    ydata1=g-y   
+    u_mag=u
+    g_mag=g
+    i_mag=i
+    z_mag=z
+    y_mag=y
     #First step: refuse data beyond the applicability range
     m=[]
     n=[]
     m1=[]
     n1=[]
+    m2=[]
+    n2=[]
+    m3=[]
+    n3=[]
+    m4=[]
     a,b=0.66,1.24   #a,b denote the lower and upper limit of given (g-i), respectively
     ind=np.where((xdata>a)&(xdata<b))
     xdata=xdata[ind]
     ydata=ydata[ind]  
     xdata1=xdata1[ind]
     ydata1=ydata1[ind]
-    for i in np.arange(0,len(xdata)):
-        x=xdata[i]
-        y=ydata[i]
-        x1=xdata1[i]
-        y1=ydata1[i]
-        m.append(x)   # m is a list to store (g-i) data
-        n.append(y)   # n is a list to store (u-g) data
-        m1.append(x1) # m1 is a list to store (g-z) data
-        n1.append(y1) # n1 is a list to store (g-y) data
+    u_mag=u_mag[ind]
+    g_mag=g_mag[ind]
+    i_mag=i_mag[ind]
+    z_mag=z_mag[ind]
+    y_mag=y_mag[ind]
+    for j in np.arange(0,len(xdata)):
+        x1=xdata[j]
+        y1=ydata[j]
+        x2=xdata1[j]
+        y2=ydata1[j]
+        m.append(x1)   # m is a list to store (g-i) data
+        n.append(y1)   # n is a list to store (u-g) data
+        m1.append(x2) # m1 is a list to store (g-z) data
+        n1.append(y2) # n1 is a list to store (g-y) data
+        u_maga=u_mag[j]
+        g_maga=g_mag[j]
+        i_maga=i_mag[j]
+        z_maga=z_mag[j]
+        y_maga=y_mag[j]
+        m2.append(u_maga)
+        n2.append(g_maga)
+        m3.append(i_maga)
+        n3.append(z_maga)
+        m4.append(y_maga)
     np.savetxt("dwarf_g-i.csv",m)
     np.savetxt("dwarf_u-g.csv",n)  
     np.savetxt("dwarf_g-z.csv",m1)
     np.savetxt("dwarf_g-y.csv",n1)
+    np.savetxt("dwarf_umag.csv",m2)
+    np.savetxt("dwarf_gmag.csv",n2)  
+    np.savetxt("dwarf_imag.csv",m3)
+    np.savetxt("dwarf_zmag.csv",n3)
+    np.savetxt("dwarf_ymag.csv",m4)    
         
-    xdata,ydata=g-i,u-g   
+    xdata,ydata=g-i,u-g  
+    xdata1=g-z
+    ydata1=g-y 
+    u_mag=u
+    g_mag=g
+    i_mag=i
+    z_mag=z
+    y_mag=y
     m=[]
     n=[]    
     m1=[]
     n1=[]
+    m2=[]
+    n2=[]
+    m3=[]
+    n3=[]
+    m4=[]
     a,b=0.39,0.66   
     ind=np.where((xdata>a)&(xdata<b))
     xdata=xdata[ind]
     ydata=ydata[ind]
     xdata1=xdata1[ind]
     ydata1=ydata1[ind]
+    u_mag=u_mag[ind]
+    g_mag=g_mag[ind]
+    i_mag=i_mag[ind]
+    z_mag=z_mag[ind]
+    y_mag=y_mag[ind]
     c=-1.5*np.ones(len(xdata))  # c is [Fe/H]=-1.5 contour
     a00= 1.0333132              # ten polynmial coefficients
     a01= 0.15225969
@@ -117,32 +157,69 @@ def dwarf(u,g,i,z,y,error):
     ydata1=ydata1[ind]
     xdata=xdata[ind]
     ydata=ydata[ind] 
-    for i in np.arange(0,len(xdata)):
-        x=xdata[i]
-        y=ydata[i]
-        x1=xdata1[i]
-        y1=ydata1[i]
-        m.append(x)   # m is a list to store (g-i) data
-        n.append(y)   # n is a list to store (u-g) data
-        m1.append(x1) # m1 is a list to store (g-z) data
-        n1.append(y1) # n1 is a list to store (g-y) data
+    u_mag=u_mag[ind]
+    g_mag=g_mag[ind]
+    i_mag=i_mag[ind]
+    z_mag=z_mag[ind]
+    y_mag=y_mag[ind]
+    for j in np.arange(0,len(xdata)):
+        x1=xdata[j]
+        y1=ydata[j]
+        x2=xdata1[j]
+        y2=ydata1[j]
+        m.append(x1)   # m is a list to store (g-i) data
+        n.append(y1)   # n is a list to store (u-g) data
+        m1.append(x2) # m1 is a list to store (g-z) data
+        n1.append(y2) # n1 is a list to store (g-y) data
+        u_maga=u_mag[j]
+        g_maga=g_mag[j]
+        i_maga=i_mag[j]
+        z_maga=z_mag[j]
+        y_maga=y_mag[j]
+        m2.append(u_maga)
+        n2.append(g_maga)
+        m3.append(i_maga)
+        n3.append(z_maga)
+        m4.append(y_maga)
     np.savetxt("dwarf1_g-i.csv",m)
     np.savetxt("dwarf1_u-g.csv",n)  
     np.savetxt("dwarf1_g-z.csv",m1)
-    np.savetxt("dwarf1_g-y.csv",n1)    
+    np.savetxt("dwarf1_g-y.csv",n1)  
+    np.savetxt("dwarf1_umag.csv",m2)
+    np.savetxt("dwarf1_gmag.csv",n2)  
+    np.savetxt("dwarf1_imag.csv",m3)
+    np.savetxt("dwarf1_zmag.csv",n3)
+    np.savetxt("dwarf1_ymag.csv",m4)  
     
 
     xdata,ydata=g-i,u-g
+    xdata1=g-z
+    ydata1=g-y 
+    u_mag=u
+    g_mag=g
+    i_mag=i
+    z_mag=z
+    y_mag=y
     m=[]
     n=[]
     m1=[]
     n1=[]
+    m2=[]
+    n2=[]
+    m3=[]
+    n3=[]
+    m4=[]
     a,b=0.26,0.39   
     ind=np.where((xdata>a)&(xdata<b))
     xdata=xdata[ind]
     ydata=ydata[ind]
     xdata1=xdata1[ind]
     ydata1=ydata1[ind]
+    u_mag=u_mag[ind]
+    g_mag=g_mag[ind]
+    i_mag=i_mag[ind]
+    z_mag=z_mag[ind]
+    y_mag=y_mag[ind]
     c=-1*np.ones(len(xdata))  # c is [Fe/H]=-1 contour  
     need=a00+a01*c+a02*c**2+a03*c**3+a10*xdata+a11*xdata*c+a12*xdata*c**2\
              +a20*xdata**2+a21*xdata**2*c+a30*xdata**3 
@@ -151,19 +228,39 @@ def dwarf(u,g,i,z,y,error):
     ydata=ydata[ind] 
     xdata1=xdata1[ind]
     ydata1=ydata1[ind]
-    for i in np.arange(0,len(xdata)):
-        x=xdata[i]
-        y=ydata[i]
-        x1=xdata1[i]
-        y1=ydata1[i]
-        m.append(x)   # m is a list to store (g-i) data
-        n.append(y)   # n is a list to store (u-g) data
-        m1.append(x1) # m1 is a list to store (g-z) data
-        n1.append(y1) # n1 is a list to store (g-y) data
+    u_mag=u_mag[ind]
+    g_mag=g_mag[ind]
+    i_mag=i_mag[ind]
+    z_mag=z_mag[ind]
+    y_mag=y_mag[ind]
+    for j in np.arange(0,len(xdata)):
+        x1=xdata[j]
+        y1=ydata[j]
+        x2=xdata1[j]
+        y2=ydata1[j]
+        m.append(x1)   # m is a list to store (g-i) data
+        n.append(y1)   # n is a list to store (u-g) data
+        m1.append(x2) # m1 is a list to store (g-z) data
+        n1.append(y2) # n1 is a list to store (g-y) data
+        u_maga=u_mag[j]
+        g_maga=g_mag[j]
+        i_maga=i_mag[j]
+        z_maga=z_mag[j]
+        y_maga=y_mag[j]
+        m2.append(u_maga)
+        n2.append(g_maga)
+        m3.append(i_maga)
+        n3.append(z_maga)
+        m4.append(y_maga)
     np.savetxt("dwarf2_g-i.csv",m)
     np.savetxt("dwarf2_u-g.csv",n)  
     np.savetxt("dwarf2_g-z.csv",m1)
-    np.savetxt("dwarf2_g-y.csv",n1)    
+    np.savetxt("dwarf2_g-y.csv",n1)  
+    np.savetxt("dwarf2_umag.csv",m2)
+    np.savetxt("dwarf2_gmag.csv",n2)  
+    np.savetxt("dwarf2_imag.csv",m3)
+    np.savetxt("dwarf2_zmag.csv",n3)
+    np.savetxt("dwarf2_ymag.csv",m4)  
 
     csv_list=glob.glob('*g-i.csv')
     for i in csv_list:
@@ -185,31 +282,76 @@ def dwarf(u,g,i,z,y,error):
         fr=open(i,'r',encoding='utf-8').read()
         with open('g-y_use.csv','a',encoding='utf-8') as f:
             f.write(fr)
+    csv_list=glob.glob('*umag.csv')
+    for i in csv_list:
+        fr=open(i,'r',encoding='utf-8').read()
+        with open('umag_use.csv','a',encoding='utf-8') as f:
+            f.write(fr)
+    csv_list=glob.glob('*gmag.csv')
+    for i in csv_list:
+        fr=open(i,'r',encoding='utf-8').read()
+        with open('gmag_use.csv','a',encoding='utf-8') as f:
+            f.write(fr)
+    csv_list=glob.glob('*imag.csv')
+    for i in csv_list:
+        fr=open(i,'r',encoding='utf-8').read()
+        with open('imag_use.csv','a',encoding='utf-8') as f:
+            f.write(fr)
+    csv_list=glob.glob('*zmag.csv')
+    for i in csv_list:
+        fr=open(i,'r',encoding='utf-8').read()
+        with open('zmag_use.csv','a',encoding='utf-8') as f:
+            f.write(fr)
+    csv_list=glob.glob('*ymag.csv')
+    for i in csv_list:
+        fr=open(i,'r',encoding='utf-8').read()
+        with open('ymag_use.csv','a',encoding='utf-8') as f:
+            f.write(fr)
             
     #Second step: predict [Fe/H] with derived polynomial
     m=[]
     n=[]
     m1=[]
     n1=[]
+    m2=[]
+    n2=[]
+    m3=[]
+    n3=[]
+    m4=[]
     xdata=np.loadtxt("g-i_use.csv",delimiter=',') 
     ydata=np.loadtxt("u-g_use.csv",delimiter=',')
     xdata1=np.loadtxt("g-z_use.csv",delimiter=',') 
     ydata1=np.loadtxt("g-y_use.csv",delimiter=',')
+    udata=np.loadtxt("umag_use.csv",delimiter=',')
+    gdata=np.loadtxt("gmag_use.csv",delimiter=',')
+    idata=np.loadtxt("imag_use.csv",delimiter=',')
+    zdata=np.loadtxt("zmag_use.csv",delimiter=',')
+    ymagdata=np.loadtxt("ymag_use.csv",delimiter=',')    
 
-    for i in np.arange(0,len(xdata)):
-        x1=xdata[i]                        # x1 denotes (g-i) 
-        y1=ydata[i]                        # y1 denotes (u-g) 
-        x2=xdata1[i]                       # x2 denotes (g-z)
-        y2=ydata1[i]                       # y2 denotes (g-y)
+    for j in np.arange(0,len(xdata)):
+        x1=xdata[j]                        # x1 denotes (g-i) 
+        y1=ydata[j]                        # y1 denotes (u-g) 
+        x2=xdata1[j]                       # x2 denotes (g-z)
+        y2=ydata1[j]                       # y2 denotes (g-y)
+        umag=udata[j]
+        gmag=gdata[j]
+        imag=idata[j]
+        zmag=zdata[j]
+        ymag=ymagdata[j]
         if (x1>0.66):
             f1=np.linspace(-4,1,101)                # given [Fe/H]
-            x10=x1+error*np.random.randn(101)       #g,i are both Gaussian variables
-            y10=y1+error*np.random.randn(101)       #u,g are both Gaussian variables
-            x20=x2+error*np.random.randn(101)       #g,z are both Gaussian variables
-            y20=y2+error*np.random.randn(101)       #g,y are both Gaussian variables 
+            error_u=0.5834623065930296-0.06121536364870401*umag+0.001619446426501772*umag**2
+            error_g=0.6954136603749997-0.06960719295819956*gmag+0.0017544665544448582*gmag**2
+            error_i=0.6844260724549215-0.06987541218828992*imag+0.0017966284680716231*imag**2
+            error_z=0.6130081932744803-0.06475825258955238*zmag+0.0017243407035681096*zmag**2
+            error_y=0.5004115484559969-0.05695550836121708*ymag+0.0016369208012557447*ymag**2
+            x10=x1+(error_g**2+error_i**2)**0.5*np.random.randn(101)       #g,i are both Gaussian variables
+            y10=y1+(error_g**2+error_u**2)**0.5*np.random.randn(101)       #u,g are both Gaussian variables
+            x20=x2+(error_g**2+error_z**2)**0.5*np.random.randn(101)       #g,z are both Gaussian variables
+            y20=y2+(error_g**2+error_y**2)**0.5*np.random.randn(101)       #g,y are both Gaussian variables 
             need=a00+a01*f1+a02*f1**2+a03*f1**3+a10*x10+a11*x10*f1+a12*x10*f1**2\
              +a20*x10**2+a21*x10**2*f1+a30*x10**3
-            sigma=error/(2**0.5)
+            sigma=(error_g**2+error_u**2)**0.5
             likelihood=((2*np.pi)**0.5*sigma)**(-1)*(np.e)**(-((y10-need)**2)/(2*sigma**2))
             f=np.argmax(likelihood)
             m.append(f1[f])                         # m is a list to store [Fe/H]
@@ -217,14 +359,19 @@ def dwarf(u,g,i,z,y,error):
             m1.append(x20[f])                         # m1 is a list to store (g-z)
             n1.append(y20[f])                         # n1 is a list to store (g-y)
         elif (0.39<=x1<=0.66):
-            f1=np.linspace(-1.5,1,51)                    
-            x10=x1+error*np.random.randn(51)       
-            y10=y1+error*np.random.randn(51) 
-            x20=x2+error*np.random.randn(51)       
-            y20=y2+error*np.random.randn(51)
+            f1=np.linspace(-1.5,1,51)         
+            error_u=0.5834623065930296-0.06121536364870401*umag+0.001619446426501772*umag**2
+            error_g=0.6954136603749997-0.06960719295819956*gmag+0.0017544665544448582*gmag**2
+            error_i=0.6844260724549215-0.06987541218828992*imag+0.0017966284680716231*imag**2
+            error_z=0.6130081932744803-0.06475825258955238*zmag+0.0017243407035681096*zmag**2
+            error_y=0.5004115484559969-0.05695550836121708*ymag+0.0016369208012557447*ymag**2
+            x10=x1+(error_g**2+error_i**2)**0.5*np.random.randn(51)       #g,i are both Gaussian variables
+            y10=y1+(error_g**2+error_u**2)**0.5*np.random.randn(51)       #u,g are both Gaussian variables
+            x20=x2+(error_g**2+error_z**2)**0.5*np.random.randn(51)       #g,z are both Gaussian variables
+            y20=y2+(error_g**2+error_y**2)**0.5*np.random.randn(51)       #g,y are both Gaussian variables 
             need=a00+a01*f1+a02*f1**2+a03*f1**3+a10*x10+a11*x10*f1+a12*x10*f1**2\
                 +a20*x10**2+a21*x10**2*f1+a30*x10**3 
-            sigma=error/(2**0.5) 
+            sigma=(error_g**2+error_u**2)**0.5
             likelihood=((2*np.pi)**0.5*sigma)**(-1)*(np.e)**(-((y10-need)**2)/(2*sigma**2))
             f=np.argmax(likelihood)
             m.append(f1[f]) 
@@ -232,14 +379,19 @@ def dwarf(u,g,i,z,y,error):
             m1.append(x20[f])
             n1.append(y20[f])
         else:
-            f1=np.linspace(-1,1,41)                    
-            x10=x1+error*np.random.randn(41)       
-            y10=y1+error*np.random.randn(41)  
-            x20=x2+error*np.random.randn(51)       
-            y20=y2+error*np.random.randn(51)
+            f1=np.linspace(-1,1,41)   
+            error_u=0.5834623065930296-0.06121536364870401*umag+0.001619446426501772*umag**2
+            error_g=0.6954136603749997-0.06960719295819956*gmag+0.0017544665544448582*gmag**2
+            error_i=0.6844260724549215-0.06987541218828992*imag+0.0017966284680716231*imag**2
+            error_z=0.6130081932744803-0.06475825258955238*zmag+0.0017243407035681096*zmag**2
+            error_y=0.5004115484559969-0.05695550836121708*ymag+0.0016369208012557447*ymag**2
+            x10=x1+(error_g**2+error_i**2)**0.5*np.random.randn(41)       #g,i are both Gaussian variables
+            y10=y1+(error_g**2+error_u**2)**0.5*np.random.randn(41)       #u,g are both Gaussian variables
+            x20=x2+(error_g**2+error_z**2)**0.5*np.random.randn(41)       #g,z are both Gaussian variables
+            y20=y2+(error_g**2+error_y**2)**0.5*np.random.randn(41)       #g,y are both Gaussian variables 
             need=a00+a01*f1+a02*f1**2+a03*f1**3+a10*x10+a11*x10*f1+a12*x10*f1**2\
              +a20*x10**2+a21*x10**2*f1+a30*x10**3 
-            sigma=error/(2**0.5) 
+            sigma=(error_g**2+error_u**2)**0.5
             likelihood=((2*np.pi)**0.5*sigma)**(-1)*(np.e)**(-((y10-need)**2)/(2*sigma**2))
             f=np.argmax(likelihood)
             m.append(f1[f])
@@ -280,10 +432,30 @@ def dwarf(u,g,i,z,y,error):
     os.remove("dwarf1_g-y.csv")
     os.remove("dwarf2_g-z.csv")
     os.remove("dwarf2_g-y.csv")
+    os.remove("dwarf_umag.csv")
+    os.remove("dwarf_gmag.csv")
+    os.remove("dwarf_imag.csv")
+    os.remove("dwarf_zmag.csv")
+    os.remove("dwarf_ymag.csv")    
+    os.remove("dwarf1_umag.csv")
+    os.remove("dwarf1_gmag.csv")
+    os.remove("dwarf1_imag.csv")
+    os.remove("dwarf1_zmag.csv")
+    os.remove("dwarf1_ymag.csv")    
+    os.remove("dwarf2_umag.csv")
+    os.remove("dwarf2_gmag.csv")
+    os.remove("dwarf2_imag.csv")
+    os.remove("dwarf2_zmag.csv")
+    os.remove("dwarf2_ymag.csv")    
     os.remove("u-g_use.csv")
     os.remove("g-i_use.csv")
     os.remove("g-z_use.csv")
     os.remove("g-y_use.csv")
+    os.remove("umag_use.csv")
+    os.remove("gmag_use.csv")
+    os.remove("imag_use.csv")
+    os.remove("zmag_use.csv")
+    os.remove("ymag_use.csv")
     os.remove("dwarf_feh_estimated.csv")
     os.remove("dwarf_g-i_final.csv")
     os.remove("dwarf_g-z_final.csv")
@@ -315,11 +487,11 @@ def dwarf(u,g,i,z,y,error):
     ydata3=data.loc[:,['g-y']].values
     #Determine teff
     m2,n2,m3,n3=[],[],[],[]
-    for i in np.arange(0,len(xdata2)):
-        x2=xdata2[i]                             # x2 denotes (g-i)                 
-        y2=ydata2[i]                             # y2 denotes [Fe/H]
-        x3=xdata3[i]                             # x3 denotes (g-z)
-        y3=ydata3[i]                             # y3 denotes (g-y)
+    for j in np.arange(0,len(xdata2)):
+        x2=xdata2[j]                             # x2 denotes (g-i)                 
+        y2=ydata2[j]                             # y2 denotes [Fe/H]
+        x3=xdata3[j]                             # x3 denotes (g-z)
+        y3=ydata3[j]                             # y3 denotes (g-y)
         need1= 7466.46019175+83.22449937*y2+79.34173462*y2**2-3558.88890004*x2\
         +136.99301103*x2*y2+974.032979*x2**2        
         m2.append(need1)
@@ -341,7 +513,7 @@ def dwarf(u,g,i,z,y,error):
             n3.append(need3)
     
     np.savetxt("teff_g-i.csv",m2)
-    np.savetxt("1feh.csv",n2)
+    np.savetxt("1jinshufengdu.csv",n2)
     np.savetxt("teff_g-z.csv",m3)
     np.savetxt("teff_g-y.csv",n3)    
     
@@ -362,7 +534,7 @@ def dwarf(u,g,i,z,y,error):
     for i in np.arange(0,len(ydata4)):               
         y4=ydata4[i]                             # y4 denotes [Fe/H]   
         m4.append(y4)   
-    np.savetxt("2feh.csv",m4)
+    np.savetxt("2jinshufengdu.csv",m4)
 
     
     os.remove("dwarf_CSST_MidRes(4500-6600K)_choose.xlsx")
@@ -370,7 +542,7 @@ def dwarf(u,g,i,z,y,error):
     os.remove("dwarf_parameter.csv")
     os.remove("dwarf_parameter2.csv")    
 
-    csv_list=glob.glob('*feh.csv')
+    csv_list=glob.glob('*jinshufengdu.csv')
     for i in csv_list:
         fr=open(i,'r',encoding='utf-8').read()
         with open('metallicity_use.csv','a',encoding='utf-8') as f:
@@ -387,8 +559,8 @@ def dwarf(u,g,i,z,y,error):
     data.to_csv("parameter_dwarf.csv", header=headerList, index=False)   
 
     
-    os.remove("1feh.csv")
-    os.remove("2feh.csv") 
+    os.remove("1jinshufengdu.csv")
+    os.remove("2jinshufengdu.csv") 
     os.remove("metallicity_use.csv")
     os.remove("teff_g-i.csv") 
     os.remove("teff_g-y.csv")             
@@ -400,8 +572,7 @@ def dwarf(u,g,i,z,y,error):
 
 
 
-
-def giant(u,g,i,z,y,error):
+def giant(u,g,i,z,y):
     '''
     This function is used to estimate the metallicity and effective 
     temperature of the giant stars from the CSST broad-band filter systems.
@@ -422,11 +593,7 @@ def giant(u,g,i,z,y,error):
            
         y: array-like, shape (n, )
            CSST y band           
-           
-        error: float
-           color error. An assumption that (u-g) and (g-i) are independent Gaussian variables
-           is made.
-           
+                      
     The output is one file named parameter_giant.csv, which stores the photometric metallicity and 
     the effective temperature of the giant stars.
     '''
@@ -440,17 +607,32 @@ def giant(u,g,i,z,y,error):
     ydata=u-g
     xdata1=g-z
     ydata1=g-y
+    u_mag=u
+    g_mag=g
+    i_mag=i
+    z_mag=z
+    y_mag=y
     #First step: refuse data beyond the applicability range
     m=[]
     n=[]
     m1=[]
     n1=[]
+    m2=[]
+    n2=[]
+    m3=[]
+    n3=[]
+    m4=[]
     a,b=0.53,1.24   #a,b denote lower and upper limit of given (g-i), respectively
     ind=np.where((xdata>a)&(xdata<b))
     xdata=xdata[ind]
     ydata=ydata[ind]
     xdata1=xdata1[ind]
-    ydata1=ydata1[ind]    
+    ydata1=ydata1[ind]   
+    u_mag=u_mag[ind]
+    g_mag=g_mag[ind]
+    i_mag=i_mag[ind]
+    z_mag=z_mag[ind]
+    y_mag=y_mag[ind]
     c=-4*np.ones(len(xdata))  # c is [Fe/H]=-4 contour       
     a00= 2.09930709          # ten polynimial coefficients
     a01= 0.17332003 
@@ -469,15 +651,35 @@ def giant(u,g,i,z,y,error):
     ydata=ydata[ind]
     xdata1=xdata1[ind]
     ydata1=ydata1[ind] 
-    for i in np.arange(0,len(xdata)):
-        x=xdata[i]
-        y=ydata[i]
-        x1=xdata1[i]
-        y1=ydata1[i]
-        m.append(x)   # m is a list to store (g-i) data
-        n.append(y)   # n is a list to store (u-g) data
-        m1.append(x1) # m1 is a list to store (g-z) data
-        n1.append(y1) # n1 is a list to store (g-y) data
+    u_mag=u_mag[ind]
+    g_mag=g_mag[ind]
+    i_mag=i_mag[ind]
+    z_mag=z_mag[ind]
+    y_mag=y_mag[ind]
+    for j in np.arange(0,len(xdata)):
+        x1=xdata[j]
+        y1=ydata[j]
+        x2=xdata1[j]
+        y2=ydata1[j]
+        m.append(x1)   # m is a list to store (g-i) data
+        n.append(y1)   # n is a list to store (u-g) data
+        m1.append(x2) # m1 is a list to store (g-z) data
+        n1.append(y2) # n1 is a list to store (g-y) data        
+        u_maga=u_mag[j]
+        g_maga=g_mag[j]
+        i_maga=i_mag[j]
+        z_maga=z_mag[j]
+        y_maga=y_mag[j]
+        m2.append(u_maga)
+        n2.append(g_maga)
+        m3.append(i_maga)
+        n3.append(z_maga)
+        m4.append(y_maga)
+    np.savetxt("umag_use.csv",m2)
+    np.savetxt("gmag_use.csv",n2)  
+    np.savetxt("imag_use.csv",m3)
+    np.savetxt("zmag_use.csv",n3)
+    np.savetxt("ymag_use.csv",m4)     
     np.savetxt("g-i_use.csv",m)
     np.savetxt("u-g_use.csv",n)  
     np.savetxt("g-z_use.csv",m1)
@@ -488,24 +690,44 @@ def giant(u,g,i,z,y,error):
     n=[]
     m1=[]
     n1=[]
+    m2=[]
+    n2=[]
+    m3=[]
+    n3=[]
+    m4=[]
     xdata=np.loadtxt("g-i_use.csv",delimiter=',') 
     ydata=np.loadtxt("u-g_use.csv",delimiter=',')
     xdata1=np.loadtxt("g-z_use.csv",delimiter=',') 
-    ydata1=np.loadtxt("g-y_use.csv",delimiter=',')    
+    ydata1=np.loadtxt("g-y_use.csv",delimiter=',') 
+    udata=np.loadtxt("umag_use.csv",delimiter=',')
+    gdata=np.loadtxt("gmag_use.csv",delimiter=',')
+    idata=np.loadtxt("imag_use.csv",delimiter=',')
+    zdata=np.loadtxt("zmag_use.csv",delimiter=',')
+    ymagdata=np.loadtxt("ymag_use.csv",delimiter=',') 
     
-    for i in np.arange(0,len(xdata)-1):
-        x1=xdata[i]                        # x1 denotes (g-i) 
-        y1=ydata[i]                        # y1 denotes (u-g)
-        x2=xdata1[i]                       # x2 denotes (g-z)
-        y2=ydata1[i]                       # y2 deontes (g-y)        
+    for j in np.arange(0,len(xdata)-1):
+        x1=xdata[j]                        # x1 denotes (g-i) 
+        y1=ydata[j]                        # y1 denotes (u-g)
+        x2=xdata1[j]                       # x2 denotes (g-z)
+        y2=ydata1[j]                       # y2 deontes (g-y)  
+        umag=udata[j]
+        gmag=gdata[j]
+        imag=idata[j]
+        zmag=zdata[j]
+        ymag=ymagdata[j]        
         f1=np.linspace(-4,0.5,91)           # given [Fe/H]
-        x10=x1+error*np.random.randn(91)       #g,i are both Gaussian variables
-        y10=y1+error*np.random.randn(91)       #u,g are both Gaussian variables
-        x20=x2+error*np.random.randn(91)       #g,z are both Gaussian variables
-        y20=y2+error*np.random.randn(91)       #g,y are both Gaussian variables        
+        error_u=0.5834623065930296-0.06121536364870401*umag+0.001619446426501772*umag**2
+        error_g=0.6954136603749997-0.06960719295819956*gmag+0.0017544665544448582*gmag**2
+        error_i=0.6844260724549215-0.06987541218828992*imag+0.0017966284680716231*imag**2
+        error_z=0.6130081932744803-0.06475825258955238*zmag+0.0017243407035681096*zmag**2
+        error_y=0.5004115484559969-0.05695550836121708*ymag+0.0016369208012557447*ymag**2
+        x10=x1+(error_g**2+error_i**2)**0.5*np.random.randn(91)       #g,i are both Gaussian variables
+        y10=y1+(error_g**2+error_u**2)**0.5*np.random.randn(91)       #u,g are both Gaussian variables
+        x20=x2+(error_g**2+error_z**2)**0.5*np.random.randn(91)       #g,z are both Gaussian variables
+        y20=y2+(error_g**2+error_y**2)**0.5*np.random.randn(91)       #g,y are both Gaussian variables                
         need=a00+a01*f1+a02*f1**2+a03*f1**3+a10*x10+a11*x10*f1+a12*x10*f1**2\
              +a20*x10**2+a21*x10**2*f1+a30*x10**3    
-        sigma=error/(2**0.5)             
+        sigma=(error_g**2+error_u**2)**0.5    
         likelihood=((2*np.pi)**0.5*sigma)**(-1)*(np.e)**(-((y10-need)**2)/(2*sigma**2))
         f=np.argmax(likelihood)
         m.append(f1[f])                         # m is a list to store [Fe/H]
@@ -538,7 +760,12 @@ def giant(u,g,i,z,y,error):
     os.remove("u-g_use.csv")
     os.remove("g-i_use.csv")
     os.remove("g-z_use.csv")
-    os.remove("g-y_use.csv")    
+    os.remove("g-y_use.csv")   
+    os.remove("umag_use.csv")
+    os.remove("gmag_use.csv")
+    os.remove("imag_use.csv")
+    os.remove("zmag_use.csv")
+    os.remove("ymag_use.csv")
     os.remove("giant_feh_estimated.csv")
     os.remove("giant_g-i_final.csv")
     os.remove("giant_g-z_final.csv")
@@ -570,11 +797,11 @@ def giant(u,g,i,z,y,error):
     ydata3=data.loc[:,['g-y']].values
     #Determine teff
     m2,n2,m3,n3=[],[],[],[]
-    for i in np.arange(0,len(xdata2)):
-        x2=xdata2[i]                             # x2 denotes (g-i)                 
-        y2=ydata2[i]                             # y2 denotes [Fe/H]
-        x3=xdata3[i]                             # x3 denotes (g-z)
-        y3=ydata3[i]                             # y3 denotes (g-y)
+    for j in np.arange(0,len(xdata2)):
+        x2=xdata2[j]                             # x2 denotes (g-i)                 
+        y2=ydata2[j]                             # y2 denotes [Fe/H]
+        x3=xdata3[j]                             # x3 denotes (g-z)
+        y3=ydata3[j]                             # y3 denotes (g-y)
         need1= 7144.05864569+228.36499743*y2+100.95537008*y2**2-2809.36338573*x2\
         +45.97629437*x2*y2+547.81920701*x2**2        
         m2.append(need1)
@@ -596,7 +823,7 @@ def giant(u,g,i,z,y,error):
             n3.append(need3)    
             
     np.savetxt("teff_g-i.csv",m2)
-    np.savetxt("1feh.csv",n2)
+    np.savetxt("1jinshu.csv",n2)
     np.savetxt("teff_g-z.csv",m3)
     np.savetxt("teff_g-y.csv",n3)   
     
@@ -617,7 +844,7 @@ def giant(u,g,i,z,y,error):
     for i in np.arange(0,len(ydata4)):               
         y4=ydata4[i]                             # y4 denotes [Fe/H]   
         m4.append(y4) 
-    np.savetxt("2feh.csv",m4)
+    np.savetxt("2jinshu.csv",m4)
 
     
     os.remove("giant_CSST_MidRes(4500-5800K)_choose.xlsx")
@@ -625,7 +852,7 @@ def giant(u,g,i,z,y,error):
     os.remove("giant_parameter.csv")
     os.remove("giant_parameter2.csv")    
 
-    csv_list=glob.glob('*feh.csv')
+    csv_list=glob.glob('*jinshu.csv')
     for i in csv_list:
         fr=open(i,'r',encoding='utf-8').read()
         with open('metallicity_use.csv','a',encoding='utf-8') as f:
@@ -640,8 +867,8 @@ def giant(u,g,i,z,y,error):
     headerList = ['feh', 'teff']
     data.to_csv("parameter_giant.csv", header=headerList, index=False) 
     
-    os.remove("1feh.csv")
-    os.remove("2feh.csv") 
+    os.remove("1jinshu.csv")
+    os.remove("2jinshu.csv") 
     os.remove("metallicity_use.csv")
     os.remove("teff_g-i.csv") 
     os.remove("teff_g-y.csv")             
@@ -656,7 +883,7 @@ def giant(u,g,i,z,y,error):
 
 
 
-def CSST_parameter(NUV,u,g,i,z,y,error):
+def CSST_parameter(NUV,u,g,i,z,y):
     '''
     This program is designed specially to estimate the metallicity and effective 
     temperature of the stars from the CSST broad-band filter systems.
@@ -681,10 +908,6 @@ def CSST_parameter(NUV,u,g,i,z,y,error):
         y: array-like, shape (n, )
            CSST y band           
            
-        error: float
-           color error. An assumption that (u-g) and (g-i) are independent Gaussian variables
-           is made.
-           
     The output is one file named CSST_parameter.csv, which stores the photometric metallicity and 
     the effective temperature of the stars.
     '''
@@ -694,7 +917,6 @@ def CSST_parameter(NUV,u,g,i,z,y,error):
     import glob
     import os
     NUV,u,g,i,z,y1=NUV,u,g,i,z,y
-    error=error
     xdata=g-i
     ydata=NUV-u
     m,n,m1,n1=[],[],[],[]
@@ -823,8 +1045,6 @@ def CSST_parameter(NUV,u,g,i,z,y,error):
         with open('giant_y.csv','a',encoding='utf-8') as f:
             f.write(fr) 
             
-            
-
     os.remove("1dwarf_u.csv")
     os.remove("1dwarf_g.csv") 
     os.remove("1dwarf_i.csv") 
@@ -851,13 +1071,13 @@ def CSST_parameter(NUV,u,g,i,z,y,error):
     i=np.loadtxt("dwarf_i.csv",delimiter=',')
     z=np.loadtxt("dwarf_z.csv",delimiter=',') 
     y=np.loadtxt("dwarf_y.csv",delimiter=',') 
-    dwarf(u,g,i,z,y,error)            
+    dwarf(u,g,i,z,y)            
     u=np.loadtxt("giant_u.csv",delimiter=',') 
     g=np.loadtxt("giant_g.csv",delimiter=',')
     i=np.loadtxt("giant_i.csv",delimiter=',')
     z=np.loadtxt("giant_z.csv",delimiter=',') 
     y=np.loadtxt("giant_y.csv",delimiter=',') 
-    giant(u,g,i,z,y,error)                
+    giant(u,g,i,z,y)                
 
     os.remove("dwarf_u.csv")
     os.remove("dwarf_g.csv")
